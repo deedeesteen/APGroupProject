@@ -1,15 +1,20 @@
-public class User
-{
+public class User {
     int ID;
     int password;
     String role;
+    String name;
 
-
-    public User()
-    {
+    public User() {
         ID = 000;
         password = 111;
         role = "Default";
+        name = "Default";
+    }
+
+    public User(int i, int p, String r) {
+        ID = i;
+        password = p;
+        role = r;
     }
 
     public int getID() {
@@ -36,16 +41,16 @@ public class User
         this.role = role;
     }
 
-    public User(int i , int p , String r)
-    {
-        ID = i;
-        password = p;
-        role = r;   
+    public String getName() {
+        return name;
     }
 
-    public String toString()
-    {
-        return "ID: " + ID + "Password: " + password + "Role: " + role;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String toString() {
+        return "ID: " + ID + "Password: " + password + "Name: " + name + "Role: " + role;
     }
 
 }
