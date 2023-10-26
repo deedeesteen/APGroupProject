@@ -26,7 +26,8 @@ public class Driver {
 
                     Customer validate = cust.read(id);
 
-                    if (validate.getID() == id) {
+                    if (validate.getID() == id) 
+                    {
                         if (validate.getPassword() == password) {
                             // Customer cust = new Customer();
                             cust.login();

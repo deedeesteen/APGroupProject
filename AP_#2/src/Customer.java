@@ -5,6 +5,7 @@
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Scanner;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -42,34 +43,6 @@ public class Customer extends User {
     public void setAccountBalance(double AC) {
         this.accountBalance = AC;
     }
-
-    /*
-     * public static Customer loadCustomerRecord(String filename) {
-     * try (FileInputStream fis = new FileInputStream(filename);
-     * ObjectInputStream ois = new ObjectInputStream(fis)) {
-     * Customer customer = (Customer) ois.readObject();
-     * return customer;
-     * } catch (IOException | ClassNotFoundException e) {
-     * e.printStackTrace();
-     * }
-     * return null;
-     * }
-     * 
-     * public static boolean login(int password, int ID) {
-     * Customer customer = loadCustomerRecord("Customer.ser");
-     * 
-     * if (customer.getPassword() == password && customer.getID() == ID) {
-     * if (customer != null) {
-     * System.out.println("Read Employee Record: " + customer);
-     * return true;
-     * }
-     * 
-     * }
-     * return false;
-     * 
-     * }
-     * 
-     */
 
     public void create(Customer cust) {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
@@ -156,10 +129,37 @@ public class Customer extends User {
 
     }
 
+    public void viewTransactions() {
+
+    }
+
     public void login() {
+
         int optionSelection;
 
-        System.out.println("****** cUSTOMER MENU ******");
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("****** CUSTOMER MENU ******");
+
+        System.out.println("1 - View Equipment");
+
+        System.out.println("2 - View Transactions");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                viewEquipment();
+                break;
+
+            case 2:
+                viewBookings();
+                break;
+
+            case 3:
+                viewTransactions();
+                break;
+        }
 
     }
 
