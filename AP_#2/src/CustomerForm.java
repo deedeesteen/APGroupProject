@@ -140,6 +140,7 @@ public class CustomerForm {
 
                 Equipment equip = new Equipment();
 
+                equip.EquipmentForm();
             }
 
         });

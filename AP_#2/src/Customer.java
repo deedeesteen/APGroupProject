@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.apache.logging.log4j.LogManager;
 import org.hibernate.Transaction;
+import org.jboss.logging.Logger;
 
 public class Customer extends User {
-
-    // private static final long serialVersionUID = 1L;
 
     double accountBalance;
 

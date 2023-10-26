@@ -11,8 +11,6 @@ public class Driver {
 
     public static void main(String[] args) {
 
-        // cust.create(cust);
-
     }
 
     public boolean validateUserCredential(int id, int password, int menuSelection) {
@@ -26,8 +24,7 @@ public class Driver {
 
                     Customer validate = cust.read(id);
 
-                    if (validate.getID() == id) 
-                    {
+                    if (validate.getID() == id) {
                         if (validate.getPassword() == password) {
                             // Customer cust = new Customer();
                             cust.login();
