@@ -1,8 +1,7 @@
 
-
 import java.io.Serializable;
 
-public class User implements Serializable {
+public abstract class User implements Serializable {
 
     protected int ID;
     protected int password;
@@ -16,9 +15,9 @@ public class User implements Serializable {
         name = "Default";
     }
 
-    public User(int i, int p, String r, String n) {
+    public User(int i, int password2, String r, String n) {
         this.ID = i;
-        this.password = p;
+        this.password = password2;
         this.role = r;
         this.name = n;
     }
@@ -64,4 +63,22 @@ public class User implements Serializable {
     }
 
     // public abstract void Login();
+
+    public abstract void viewBookings();
+
+    public abstract void viewEquipment();
+
+    /*
+     * public abstract void create();
+     * 
+     * public abstract User update();
+     * 
+     * public abstract User delete();
+     * 
+     * public abstract User read();
+     * 
+     * // public abstract readAll();\
+     * 
+     */
+
 }
