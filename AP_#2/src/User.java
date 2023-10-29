@@ -1,12 +1,20 @@
 
 import java.io.Serializable;
 
-public abstract class User implements Serializable {
+import org.hibernate.Session;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+//import com.mysql.cj.xdevapi.SessionFactory;
+
+public class User implements Serializable {
 
     protected int ID;
     protected int password;
     protected String role;
     protected String name;
+
+    private SessionFactory factory;
 
     public User() {
         ID = 000;
@@ -20,6 +28,10 @@ public abstract class User implements Serializable {
         this.password = password2;
         this.role = r;
         this.name = n;
+    }
+
+    public User(SessionFactory factory) {
+        this.factory = SessionFactoryBuilder.getSessionFactory();
     }
 
     public User(User u) {
@@ -64,9 +76,15 @@ public abstract class User implements Serializable {
 
     // public abstract void Login();
 
-    public abstract void viewBookings();
+    // public abstract void viewBookings();
 
-    public abstract void viewEquipment();
+    // public abstract void viewEquipment();
+
+    public User read(int id, int password) {
+        try (Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession()) {
+            return session.get(User.class, id);
+        }
+    }
 
     /*
      * public abstract void create();

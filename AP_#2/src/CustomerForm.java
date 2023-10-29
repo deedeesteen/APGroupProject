@@ -70,11 +70,13 @@ public class CustomerForm {
         frame.add(passwordTextField);
 
         accountBalanceLabel = new JLabel("Account Balance:");
-        accountBalanceLabel.setBounds(50, 170, 75, 30);
+        accountBalanceLabel.setBounds(50, 300, 75, 30);
+        accountBalanceLabel.setVisible(false);
         frame.add(accountBalanceLabel);
         accountBalanceTextField = new JTextField();
-        accountBalanceLabel.setBounds(150, 170, 200, 30);
-        frame.add(accountBalanceLabel);
+        accountBalanceTextField.setBounds(150, 300, 200, 30); // Corrected the bounds
+        accountBalanceTextField.setVisible(false);
+        frame.add(accountBalanceTextField);
 
         roleLabel = new JLabel("Role: ");
         roleLabel.setBounds(50, 210, 75, 30);
@@ -100,18 +102,20 @@ public class CustomerForm {
         createAccountButton.setBounds(150, 430, 200, 30);
         frame.add(createAccountButton);
 
-        viewTransactionButton = new JButton("View Transaction");
-        viewTransactionButton.setBounds(150, 430, 200, 30);
-        frame.add(viewTransactionButton);
-
-        viewBookingButton = new JButton("View Booking");
-        viewBookingButton.setBounds(150, 430, 200, 30);
-        frame.add(viewBookingButton);
-
-        viewEquipmentButton = new JButton("View Equipment");
-        viewEquipmentButton.setBounds(150, 430, 200, 30);
-        frame.add(viewEquipmentButton);
-
+        /*
+         * viewTransactionButton = new JButton("View Transaction");
+         * viewTransactionButton.setBounds(150, 430, 200, 30);
+         * frame.add(viewTransactionButton);
+         * 
+         * viewBookingButton = new JButton("View Booking");
+         * viewBookingButton.setBounds(150, 430, 200, 30);
+         * frame.add(viewBookingButton);
+         * 
+         * viewEquipmentButton = new JButton("View Equipment");
+         * viewEquipmentButton.setBounds(150, 430, 200, 30);
+         * frame.add(viewEquipmentButton);
+         * 
+         */
         panTop = new JPanel(new GridLayout(1, 3));
         // panTop.add(btnClear);
         panMiddle = new JPanel(new GridLayout(1, 2));
@@ -125,7 +129,8 @@ public class CustomerForm {
                 int custId = Integer.parseInt(idTextField.getText().trim());
                 int custpassword = Integer.parseInt(passwordTextField.getText().trim());
 
-                double custACBalance = Integer.parseInt(accountBalanceTextField.getText().trim());
+                // double custACBalance =
+                // Double.parseDouble(accountBalanceTextField.getText().trim());
 
                 cust.setID(custId);
                 String empName = (nameTextField.getText().trim());
@@ -134,15 +139,46 @@ public class CustomerForm {
                 String emprole = (roleComboBox.getSelectedItem().toString().trim());
                 cust.setRole(emprole);
 
-                cust.setAccountBalance(custACBalance = 0.0);
-                Customer newCustomer = new Customer(custId, custpassword, empName, emprole, custACBalance);
+                // cust.setAccountBalance(custACBalance = 0.0);
+
+                Customer newCustomer = new Customer(custId, custpassword, empName, emprole);
                 cust.create(newCustomer);
+
+                nameLabel.setVisible(false);
+                nameTextField.setVisible(false);
+
+                roleLabel.setVisible(false);
+                roleComboBox.setVisible(false);
+
+                passwordLabel.setVisible(false);
+                passwordTextField.setVisible(false);
 
                 Equipment equip = new Equipment();
 
                 equip.EquipmentForm();
             }
 
+        });
+
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                nameLabel.setVisible(false);
+                nameTextField.setVisible(false);
+
+                roleLabel.setVisible(false);
+                roleComboBox.setVisible(false);
+
+                passwordLabel.setVisible(false);
+                passwordTextField.setVisible(false);
+                int custId = Integer.parseInt(idTextField.getText().trim());
+                // int custpassword = Integer.parseInt(passwordTextField.getText().trim());
+
+                Customer newCustomer = new Customer();
+
+                newCustomer.read(custId);
+
+            }
         });
 
         /*
@@ -216,10 +252,16 @@ public class CustomerForm {
          * 
          */
 
-        frame.setSize(450, 600);
+        frame.setSize(700, 1000);
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setVisible(true);
+
+    }
+
+    public static void main(String[] args) {
+
+        new CustomerForm();
 
     }
 

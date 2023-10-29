@@ -1,6 +1,7 @@
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -83,27 +84,54 @@ public class Equipment extends Customer {
         JLabel dateLabel;
         JTextField dateTextField;
 
+        frame = new JFrame("Grizzly's Entertainment: Equipment");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JInternalFrame Frame1 = new JInternalFrame("frame 1",
+                true, true, true, true);
+
         JComboBox<String> categoryComboBox;
         String[] category = { "Staging", "Lighting", "Power", "Sound" };
 
         JButton viewSelectionButton;
 
-        frame = new JFrame("Grizzly's Entertainment: Equipment");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        /*
+         * frame = new JFrame("Grizzly's Entertainment: Equipment");
+         * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         * 
+         * categoryJTextArea = new JTextArea(10, 10);
+         * 
+         * viewSelectionButton = new JButton("Display");
+         * viewSelectionButton.setBounds(150, 340, 200, 30);
+         * frame.add(viewSelectionButton);
+         * 
+         * categoryLabel = new JLabel("Sex: ");
+         * categoryLabel.setBounds(50, 210, 75, 30);
+         * frame.add(categoryLabel);
+         * categoryComboBox = new JComboBox<String>(category);
+         * categoryComboBox.setBounds(150, 210, 200, 30);
+         * categoryComboBox.setSelectedIndex(1);
+         * frame.add(categoryComboBox);
+         * 
+         */
 
+        Frame1.setDefaultCloseOperation((JInternalFrame.EXIT_ON_CLOSE));
         categoryJTextArea = new JTextArea(10, 10);
 
         viewSelectionButton = new JButton("Display");
         viewSelectionButton.setBounds(150, 340, 200, 30);
-        frame.add(viewSelectionButton);
+
+        Frame1.add(viewSelectionButton);
 
         categoryLabel = new JLabel("Sex: ");
         categoryLabel.setBounds(50, 210, 75, 30);
-        frame.add(categoryLabel);
+        Frame1.add(categoryLabel);
         categoryComboBox = new JComboBox<String>(category);
         categoryComboBox.setBounds(150, 210, 200, 30);
         categoryComboBox.setSelectedIndex(1);
-        frame.add(categoryComboBox);
+        Frame1.add(categoryComboBox);
+
+        frame.add(Frame1);
 
         viewSelectionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -138,6 +166,8 @@ public class Equipment extends Customer {
 
         });
 
+        Frame1.setVisible(true);
+        Frame1.setSize(400, 400);
     }
 
 } // End of Class

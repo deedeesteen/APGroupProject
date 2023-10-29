@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+
 import org.hibernate.Session;
 import org.apache.logging.log4j.LogManager;
 import org.hibernate.Transaction;
@@ -16,9 +22,15 @@ public class Customer extends User {
 
     double accountBalance;
 
-    String filename = "Customer.ser";
+    //String filename = "Customer.ser";
 
     public Customer() {
+        super();
+        accountBalance = 0.0;
+
+    }
+
+    public Customer(int ID, int password, String role, String name) {
         super();
         accountBalance = 0.0;
 
@@ -134,15 +146,34 @@ public class Customer extends User {
 
     public void login() {
 
+        JFrame frame = new JFrame("Grizzly's Entertainment: Equipment");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JInternalFrame loginInternalFrame = new JInternalFrame("frame 1", true, true, true, true);
+
+
+
+        //JLabel intro = new JLabel("****Customer Menu ******");
+
+        //JLabel equipArea = new JLabel("1 - View Equipment");
+
+        JButton viewEquip = new JButton("View Equipment");
+
+        JButton viewTrans = new JButton("View Transaction");
+
+       // JLabel trans = new JLabel("2 - View Transactions");
+
+        loginInternalFrame.add(viewEquip);
+
+        loginInternalFrame.add(viewTrans);
+
+        //loginInternalFrame.add(trans);
+
+        frame.add(loginInternalFrame);
+
         int optionSelection;
 
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println("****** CUSTOMER MENU ******");
-
-        System.out.println("1 - View Equipment");
-
-        System.out.println("2 - View Transactions");
 
         int choice = scanner.nextInt();
 
@@ -158,7 +189,17 @@ public class Customer extends User {
             case 3:
                 viewTransactions();
                 break;
+
+      
+
+
         }
+          loginInternalFrame.setVisible(true);
+
+        frame.setSize(700, 800);
+        frame.setLayout(null);
+        frame.setResizable(true);
+        frame.setVisible(true);
 
     }
 

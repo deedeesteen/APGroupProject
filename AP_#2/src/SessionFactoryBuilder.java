@@ -10,8 +10,9 @@ public class SessionFactoryBuilder {
     public static SessionFactory getSessionFactory() {
         if (factory == null) {
             factory = new Configuration()
+                    // .configure("hibernate.cfg.xml")
                     .configure("hibernate.cfg.xml")
-                    .addAnnotatedClass(Customer.class)
+                    .addAnnotatedClass(User.class)
                     .buildSessionFactory();
         }
         return factory;
