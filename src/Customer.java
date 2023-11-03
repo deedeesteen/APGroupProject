@@ -53,14 +53,9 @@ public class Customer extends User {
 
     }
 
-    public Customer(int ID, int password, String role, String name, int ui, User u) {
+
+    public Customer(int ID, int password, String role, String name, int ui) {
         super(ID, password, role, name);
-        // this.User = new User(ID, password, role, name);
-        this.cust_id = ui;
-
-    }
-
-    public Customer(User u, int ui) {
         this.cust_id = ui;
         // this.User = new User(id, password, role, name);
 
@@ -70,13 +65,6 @@ public class Customer extends User {
         this.cust_id = ui;
         this.accountBalance = accountBalance;
         // this.User = new User(id, password, role, name);
-
-    }
-
-    public Customer(int ID, int password, String role, String name, int ui) {
-        super(ui, ui, role, name);
-        // u = new User(id, password, role, name);
-        this.cust_id = ui;
 
     }
 

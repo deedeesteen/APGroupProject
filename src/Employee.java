@@ -18,9 +18,9 @@ public class Employee extends User {
 
     }
 
-    public Employee(User u, int empid) {
+    public Employee(int id, int password, String role, String name, int empid) {
+        super(empid, empid, role, name);
         this.emp_id = empid;
-        u = new User(id, password, role, name);
     }
 
     public int getEmp_id() {

@@ -149,7 +149,11 @@ public class createAccountForm {
 
                 if (userrole.equals("Customer")) {
                     cust.setCust_Id(userId);
-                    Customer newCustomer = new Customer(new User(userId, userpassword, userrole, userName), userId);
+                    // Customer newCustomer = new Customer(new User(userId, userpassword, userrole,
+                    // userName), userId);
+                    Customer newCustomer = new Customer(userId, userpassword, userrole, userName, userId);
+                    System.out.println(newCustomer);
+                    // Customer newCustomer = new User(userId, userpassword, userrole, userName);
                     // Customer newCustomer = new Customer(userId, userpassword, userrole, userName,
                     // userId);
                     User.create(newCustomer);
@@ -161,7 +165,7 @@ public class createAccountForm {
                 } else {
                     if (userrole.equals("Employee")) {
                         emp.setEmp_id(userId);
-                        Employee newEmployee = new Employee(new User(userId, userpassword, userrole, userName), userId);
+                        Employee newEmployee = new Employee(userId, userpassword, userrole, userName, userId);
                         User.create(newEmployee);
                     }
                 }
