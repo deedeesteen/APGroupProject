@@ -53,7 +53,6 @@ public class Customer extends User {
 
     }
 
-
     public Customer(int ID, int password, String role, String name, int ui) {
         super(ID, password, role, name);
         this.cust_id = ui;
@@ -195,11 +194,35 @@ public class Customer extends User {
         return cust;
     }
 
-    public Customer read(int id) {
-        try (Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession()) {
-            return session.get(Customer.class, id);
+    public Customer read(int id, int pword, Transaction trans) {
+
+        Session session = SessionFactoryBuilder.getSessionFactory().openSession();
+        Transaction transaction = null;
+        Customer readCustomer = null;
+
+        try {
+            transaction = session.beginTransaction();
+
+            // Load the entity by ID
+            readCustomer = session.get(Customer.class, id);
+
+            if (readCustomer.getPassword() == pword)
+            {
+                 transaction.commit();
+            }
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
         }
+
+        return readCustomer;
     }
+
 
     public void viewBookings() {
 

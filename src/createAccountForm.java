@@ -158,6 +158,8 @@ public class createAccountForm {
                     // userId);
                     User.create(newCustomer);
 
+                    new Equipment();
+
                     // Equipment equip = new Equipment();
 
                     // equip.EquipmentForm();
@@ -174,17 +176,14 @@ public class createAccountForm {
                 // Customer newCustomer = new Customer(custId, custpassword, empName, emprole);
                 // cust.create(newCustomer);
 
-                /*
-                 * nameLabel.setVisible(false);
-                 * nameTextField.setVisible(false);
-                 * 
-                 * roleLabel.setVisible(false);
-                 * roleComboBox.setVisible(false);
-                 * 
-                 * passwordLabel.setVisible(false);
-                 * passwordTextField.setVisible(false);
-                 * 
-                 */
+                nameLabel.setVisible(false);
+                nameTextField.setVisible(false);
+
+                roleLabel.setVisible(false);
+                roleComboBox.setVisible(false);
+
+                passwordLabel.setVisible(false);
+                passwordTextField.setVisible(false);
 
             }
 

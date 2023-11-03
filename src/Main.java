@@ -8,6 +8,9 @@ public class Main {
         User user = new User(factory);
 
         new createAccountForm();
+
+        // Equipment equipment = new Equipment();
+        // equipment.EquipmentForm();
     }
 
 }

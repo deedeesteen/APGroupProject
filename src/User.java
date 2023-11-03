@@ -81,7 +81,7 @@ public class User {
     // public abstract void viewEquipment();
 
     public User read(int id) {
-        try (Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession()) {
+        try (Session session = SessionFactoryBuilder.getSessionFactory().openSession()) {
             return session.get(User.class, id);
         }
     }
