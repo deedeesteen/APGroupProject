@@ -23,6 +23,15 @@ public class InternalFrame extends JFrame {
         /* */
     }
 
+    public void inititialise() {
+        InternalFrame iFrame = new InternalFrame();
+        iFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        iFrame.setSize(640, 480);
+
+        iFrame.setVisible(true);
+    }
+
     public static void main(String[] args) {
 
         /*

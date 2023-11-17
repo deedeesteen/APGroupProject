@@ -74,15 +74,12 @@ public class User {
         return "id: " + id + " Password: " + password + " Name: " + name + " Role: " + role;
     }
 
-    // public abstract void Login();
-
-    // public abstract void viewBookings();
-
-    // public abstract void viewEquipment();
 
     public User read(int id) {
         try (Session session = SessionFactoryBuilder.getSessionFactory().openSession()) {
+            System.out.println(id);
             return session.get(User.class, id);
+
         }
     }
 
@@ -103,6 +100,8 @@ public class User {
                 // cust.create(cust, transaction);
                 // Customer cust = new Customer();
                 cust.create(cust, transaction);
+
+                
                 // System.out.println(cust);
             } else {
                 // Employee emp = new Employee();

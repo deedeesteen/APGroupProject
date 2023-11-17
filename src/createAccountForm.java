@@ -68,6 +68,7 @@ public class createAccountForm {
         accountBalanceLabel.setBounds(50, 300, 75, 30);
         accountBalanceLabel.setVisible(false);
         frame.add(accountBalanceLabel);
+
         accountBalanceTextField = new JTextField();
         accountBalanceTextField.setBounds(150, 300, 200, 30); // Corrected the bounds
         accountBalanceTextField.setVisible(false);
@@ -158,11 +159,9 @@ public class createAccountForm {
                     // userId);
                     User.create(newCustomer);
 
-                    new Equipment();
+                    Equipment equip = new Equipment();
 
-                    // Equipment equip = new Equipment();
-
-                    // equip.EquipmentForm();
+                    equip.EquipmentForm();
 
                 } else {
                     if (userrole.equals("Employee")) {
@@ -206,6 +205,11 @@ public class createAccountForm {
                 Customer newCustomer = new Customer();
 
                 newCustomer.read(custId);
+
+                // InternalFrame iFrame = new InternalFrame();
+                // iFrame.inititialise();
+                Equipment equip = new Equipment();
+                equip.EquipmentForm();
 
             }
         });

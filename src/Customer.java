@@ -36,6 +36,12 @@ public class Customer extends User {
 
     // }
 
+    public Customer(int cust_id, double accountBalance) {
+        super();
+        this.cust_id = 0;
+        this.accountBalance = 0.0;
+    }
+
     public Customer(int ID, int password, String role, String name) {
         super();
         // this.User = new User(ID, password, role, name);
@@ -206,9 +212,8 @@ public class Customer extends User {
             // Load the entity by ID
             readCustomer = session.get(Customer.class, id);
 
-            if (readCustomer.getPassword() == pword)
-            {
-                 transaction.commit();
+            if (readCustomer.getPassword() == pword) {
+                transaction.commit();
             }
 
         } catch (Exception e) {
@@ -223,6 +228,31 @@ public class Customer extends User {
         return readCustomer;
     }
 
+    public Customer read(int id) {
+
+        Session session = SessionFactoryBuilder.getSessionFactory().openSession();
+        Transaction transaction = null;
+        Customer readCustomer = null;
+
+        try {
+            transaction = session.beginTransaction();
+
+            // Load the entity by ID
+            readCustomer = session.get(Customer.class, id);
+
+                transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return readCustomer;
+    }
 
     public void viewBookings() {
 

@@ -39,7 +39,8 @@
 		
 		<property name="current_session_context_class">thread</property>
 
-		<mapping resource="classMappingfile.xml"></mapping>
+		<mapping resource="classMappingFile.xml"></mapping>
+		
 
 		
 		

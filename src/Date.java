@@ -1,5 +1,5 @@
-public class Date {
 
+public class Date {
     private int day;
     private int month;
     private int year;
@@ -45,4 +45,17 @@ public class Date {
         return (day + "/" + month + "/" + year);
     }
 
+    /*
+     * Implement a method to parse the date (e.g., using SimpleDateFormat)
+     * private static Date parseDate(String dateText) {
+     * try {
+     * SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+     * return dateFormat.parse(dateText);
+     * } catch (ParseException e) {
+     * // Handle parsing errors
+     * e.printStackTrace();
+     * return null;
+     * }
+     * }
+     */
 }

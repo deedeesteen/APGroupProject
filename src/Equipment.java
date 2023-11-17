@@ -1,15 +1,41 @@
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+//import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import java.util.Date;
 
+import javax.swing.AbstractButton;
+//import java.awt.event.ItemEvent;
+import javax.swing.ButtonGroup;
+//import javax.swing.JButton;
+import javax.swing.JRadioButton;
+
+//import javax.swing.JCheckBox;
+
+//import java.awt.event.ItemEvent;
+
+//import java.awt.event.ItemListener;
+
+import javax.swing.JDesktopPane;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
-public class Equipment {
+public class Equipment extends Customer {
+
+    public int equipcust_id;
+
+    public int day;
+    public int month;
+    public int year;
 
     public String Category;
 
@@ -17,7 +43,11 @@ public class Equipment {
 
     public double cost;
 
-    public Date Date;
+    public Date date;
+
+    public int getEquipcust_id() {
+        return equipcust_id;
+    }
 
     public String getCategory() {
         return Category;
@@ -44,25 +74,38 @@ public class Equipment {
     }
 
     public Date getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(Date date) {
-        Date = date;
+        this.date = date;
+    }
+
+    public void setEquipcust_id(int equipcust_id) {
+        this.equipcust_id = equipcust_id;
     }
 
     public Equipment() {
         this.Category = "";
         this.Availability = false;
         this.cost = 0.0;
-        this.Date = new Date();
+        this.date = new Date();
     }
 
-    public Equipment(String c, boolean a, double cost, Date Date) {
+    public Equipment(int equipcust_id, String c, boolean a, double cost, Date date) {
+        this.equipcust_id = equipcust_id;
         this.Availability = a;
         this.Category = c;
         this.cost = cost;
-        this.Date = new Date(10, 20, 2023);
+        this.date = new Date();
+    }
+
+    public Equipment(int equipcust_id, double accountBalance, int ui, String c, boolean a, double cost, Date date) {
+        super(ui, accountBalance);
+        this.equipcust_id = equipcust_id;
+        this.Availability = a;
+        this.Category = c;
+        this.cost = cost;
     }
 
     public void EquipmentForm() {
@@ -75,8 +118,16 @@ public class Equipment {
 
         JTextField categoryTextField;
 
+        JLabel availabilityLabel;
+
         JLabel avalabilityLabel;
         JTextField avalabilityTextField;
+
+        JTextField dayTextField;
+        JTextField monthTextField;
+        JTextField yearTextField;
+
+        JTextArea idTextArea;
 
         JLabel costLabel;
         JTextField costTextField;
@@ -84,55 +135,92 @@ public class Equipment {
         JLabel dateLabel;
         JTextField dateTextField;
 
+        JRadioButton trueRadioButton;
+        JRadioButton falseRadioButton;
+        ButtonGroup availabilityGroup;
+
+        JDesktopPane desktopPane = new JDesktopPane();
+
+        // System.out.println(cust.getCust_Id());
+
         frame = new JFrame("Grizzly's Entertainment: Equipment");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JInternalFrame Frame1 = new JInternalFrame("Grizzly Entertainment - Equipment",
-                true, true, true, true);
+        JInternalFrame Frame1 = new JInternalFrame("Grizzly Entertainment - Equipment", true, true, true, true);
 
         JComboBox<String> categoryComboBox;
         String[] category = { "Staging", "Lighting", "Power", "Sound" };
 
         JButton viewSelectionButton;
 
-        /*
-         * frame = new JFrame("Grizzly's Entertainment: Equipment");
-         * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         * 
-         * categoryJTextArea = new JTextArea(10, 10);
-         * 
-         * viewSelectionButton = new JButton("Display");
-         * viewSelectionButton.setBounds(150, 340, 200, 30);
-         * frame.add(viewSelectionButton);
-         * 
-         * categoryLabel = new JLabel("Sex: ");
-         * categoryLabel.setBounds(50, 210, 75, 30);
-         * frame.add(categoryLabel);
-         * categoryComboBox = new JComboBox<String>(category);
-         * categoryComboBox.setBounds(150, 210, 200, 30);
-         * categoryComboBox.setSelectedIndex(1);
-         * frame.add(categoryComboBox);
-         * 
-         */
+        Frame1.setLayout(new FlowLayout()); // You can use a different layout manager if needed
 
-        Frame1.setDefaultCloseOperation((JInternalFrame.EXIT_ON_CLOSE));
+        Frame1.setDefaultCloseOperation(JInternalFrame.EXIT_ON_CLOSE);
+
         categoryJTextArea = new JTextArea(10, 10);
 
-        viewSelectionButton = new JButton("Display");
-        viewSelectionButton.setBounds(150, 340, 200, 30);
+        idTextArea = new JTextArea(10, 10);
+        // categoryTextField = new JTextField(getDay());
+        categoryTextField = new JTextField();
+        Frame1.add(categoryJTextArea);
 
+        idTextArea = new JTextArea("Enter Id: ");
+        JTextField idTextField = new JTextField(15);
+
+        JTextArea costJTextArea = new JTextArea(10, 10);
+        costTextField = new JTextField();
+        Frame1.add(costJTextArea);
+
+        // JTextArea availabilityJTextArea = new JTextArea(10,10);
+
+        viewSelectionButton = new JButton("Display");
         Frame1.add(viewSelectionButton);
 
         categoryLabel = new JLabel("Category: ");
-        categoryLabel.setBounds(50, 210, 75, 30);
         Frame1.add(categoryLabel);
-        
+
         categoryComboBox = new JComboBox<String>(category);
-        categoryComboBox.setBounds(150, 210, 200, 30);
         categoryComboBox.setSelectedIndex(1);
         Frame1.add(categoryComboBox);
 
-        frame.add(Frame1);
+        availabilityLabel = new JLabel("Availability");
+        // genderLabel.setBounds(50, 250, 75, 30);
+        frame.add(availabilityLabel);
+        trueRadioButton = new JRadioButton("Yes: ");
+        falseRadioButton = new JRadioButton("No: ");
+
+        availabilityGroup = new ButtonGroup();
+        availabilityGroup.add(trueRadioButton);
+        availabilityGroup.add(falseRadioButton);
+
+        // JLabel label = new JLabel("Enter Rental Date (yyyy-MM-dd):");
+        JLabel day = new JLabel("Enter day: ");
+        JLabel month = new JLabel("Enter month: ");
+        JLabel year = new JLabel("Enter year: ");
+
+        // JTextField dateField = new JTextField(10);
+        dayTextField = new JTextField(10);
+        monthTextField = new JTextField(10);
+        yearTextField = new JTextField(10);
+        JButton submitButton = new JButton("Submit");
+
+        Frame1.add(idTextArea);
+        Frame1.add(idTextField);
+        Frame1.add(availabilityLabel);
+        Frame1.add(falseRadioButton);
+        Frame1.add(trueRadioButton);
+        Frame1.add(day);
+        Frame1.add(month);
+        Frame1.add(year);
+        Frame1.add(dayTextField);
+        Frame1.add(monthTextField);
+        Frame1.add(yearTextField);
+        Frame1.add(submitButton);
+
+        // date.start(stage);
+
+        desktopPane.add(Frame1);
+        frame.add(desktopPane);
 
         viewSelectionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -140,24 +228,28 @@ public class Equipment {
                 // Customer customer = new Customer();
                 Equipment equip = new Equipment();
 
-                equip.setCategory(categoryComboBox.getSelectedItem().toString().trim());
+                String category = categoryComboBox.getSelectedItem().toString().trim();
 
-                String category = equip.getCategory();
+                equip.setCategory(category);
+
+                // int id = idTextArea.setText(cust_id);
 
                 if (category == "Lighting") {
-                    // System.out.println("");
-                    categoryLabel.setText(categoryJTextArea.getText());
+                    categoryJTextArea.setText(category);
+                    cost = 25000;
+                    equip.setCost(25000);
                 } else {
-                    if (category == "") {
-                        // System.out.println();
-                        categoryLabel.setText(categoryJTextArea.getText());
+                    if (category == "Staging") {
+                        categoryJTextArea.setText(category);
+                        equip.setCost(25000);
                     } else {
-                        if (category == "") {
-                            categoryLabel.setText(categoryJTextArea.getText());
+                        if (category == "Power") {
+                            categoryJTextArea.setText(category);
+                            equip.setCost(25000);
                         } else {
-                            if (category == "") {
-                                // System.out.println("");
-                                categoryLabel.setText(categoryJTextArea.getText());
+                            if (category == "Sound") {
+                                categoryJTextArea.setText(category);
+                                equip.setCost(25000);
                             }
                         }
                     }
@@ -168,8 +260,145 @@ public class Equipment {
         });
 
         Frame1.setVisible(true);
-        Frame1.setSize(400, 400);
+        Frame1.setSize(500, 480);
         frame.setVisible(true);
+        frame.setSize(600, 600);
+
+        submitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                /*
+                 * Equipment equip = new Equipment();
+                 * Customer cust = new Customer();
+                 * 
+                 * int day = Integer.parseInt(dayTextField.getText().trim());
+                 * int month = Integer.parseInt(monthTextField.getText().trim());
+                 * int year = Integer.parseInt(yearTextField.getText().trim());
+                 * equipcust_id = Integer.parseInt(idTextField.getText().trim());
+                 * String category = categoryComboBox.getSelectedItem().toString().trim();
+                 * cust_id = 17;
+                 * 
+                 * boolean availability;
+                 * // cost = equip.getCost();
+                 * 
+                 * if (falseRadioButton.isSelected()) {
+                 * availability = false;
+                 * } else {
+                 * availability = true;
+                 * }
+                 * 
+                 * equip.setAvailability(availability);
+                 * equip.setCategory(category);
+                 * equip.setEquipcust_id(cust_id);
+                 * equip.setCust_Id(cust_id);
+                 * equip.setCost(25000.00);
+                 * 
+                 * System.out.println(availability);
+                 * System.out.println(equipcust_id);
+                 * System.out.print(day);
+                 * System.out.print(month);
+                 * System.out.println(year);
+                 * System.out.println(category);
+                 * System.out.println(cost);
+                 * System.out.println(cust_id);
+                 * 
+                 * // cost = equip.setCost(25000);
+                 * SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                 * 
+                 * Session session =
+                 * SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+                 * Transaction transaction = null;
+                 * 
+                 * try {
+                 * transaction = session.beginTransaction();
+                 * 
+                 * date = sdf.parse(String.format("%02d/%02d/%04d", month, day, year));
+                 * categoryJTextArea.setText("Chosen Date: " + date);
+                 * System.out.println(date);
+                 * categoryJTextArea.setText("Availibility: " + availability);
+                 * equip.setDate(date);
+                 * 
+                 * System.out.println(equipcust_id);
+                 * Equipment newEquipment = new Equipment(cust_id, accountBalance, equipcust_id,
+                 * category,
+                 * availability, cost, date);
+                 * 
+                 * session.save(newEquipment);
+                 * 
+                 * transaction.commit();
+                 * session.close();
+                 * } catch (RuntimeException re) {
+                 * re.printStackTrace();
+                 * if (transaction != null && transaction.isActive()) {
+                 * transaction.rollback();
+                 * }
+                 * re.printStackTrace();
+                 * } catch (ParseException pe) {
+                 * pe.printStackTrace();
+                 * }
+                 */
+                Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+                Transaction transaction = null;
+
+                try {
+                    transaction = session.beginTransaction();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                    Equipment equip = new Equipment();
+                    // equipcust_id = Integer.parseInt(idTextField.getText().trim());
+
+                    int day = Integer.parseInt(dayTextField.getText().trim());
+                    int month = Integer.parseInt(monthTextField.getText().trim());
+                    int year = Integer.parseInt(yearTextField.getText().trim());
+                    String category = categoryComboBox.getSelectedItem().toString().trim();
+                    boolean availability;
+                    cust_id = 17;
+
+                    if (falseRadioButton.isSelected()) {
+                        availability = false;
+                    } else {
+                        availability = true;
+                    }
+
+                    // Assuming cust_id is set to a valid value, e.g., 17
+                    // The equipcust_id will be the same as the cust_id of the associated customer
+                    int equipcust_id = 37;
+                    int cust_id = 49;
+                    System.out.println(equipcust_id);
+                    System.out.println(cust_id);
+
+                    date = sdf.parse(String.format("%02d/%02d/%04d", month, day, year));
+                    categoryJTextArea.setText("Chosen Date: " + date);
+                    System.out.println(date);
+                    categoryJTextArea.setText("Availibility: " + availability);
+                    equip.setDate(date);
+
+                    Equipment newEquipment = new Equipment(cust_id, accountBalance, equipcust_id, category,
+                            availability, cost, date);
+
+                    session.save(newEquipment);
+
+                    transaction.commit();
+                    session.close();
+                } catch (RuntimeException re) {
+                    re.printStackTrace();
+                    if (transaction != null && transaction.isActive()) {
+                        transaction.rollback();
+                    }
+                    re.printStackTrace();
+                } catch (ParseException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+
+            }
+        });
+
     }
 
+    public static void main(String[] args) {
+
+        Equipment equipment = new Equipment();
+        equipment.EquipmentForm();
+    }
 }

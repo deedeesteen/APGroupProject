@@ -5,7 +5,8 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
   
-<hibernate-mapping>  
+<hibernate-mapping> 
+<!-- Common properties for User --> 
   <class name="User" table="user">  
   <id name="id">  
       <generator class="assigned"></generator>  
@@ -16,14 +17,29 @@
   <property name="name" column="name" type="java.lang.String" />
     
   
+   <!-- Subclass mapping for Customer -->
 <joined-subclass name="Customer" table="customer">  
     <key column="cust_id"></key>  
     <property name="accountBalance" column="accountbalance" type="java.lang.Double"/> 
+    
+    <!-- Mapping for Equipment Class -->
+      <joined-subclass name="Equipment" table="equipment">
+          <key column="equipcust_id"></key>
+          <property name="cost" column="cost" type="java.lang.Double" />
+          <property name="availability" column="availability" type="java.lang.Boolean"  />
+          <property name="category" column="category" type="java.lang.String" />
+           <property name="date" column="date" type="java.util.Date" />
+      </joined-subclass>
+
+  
 </joined-subclass>  
 
+<!-- Subclass mapping for Employee -->
 <joined-subclass name="Employee" table="employee">  
   <key column="emp_id"></key>  
 </joined-subclass>  
+
+
   
   </class>  
 </hibernate-mapping>  
