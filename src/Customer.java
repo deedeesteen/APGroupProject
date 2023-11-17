@@ -1,22 +1,17 @@
+import java.io.Serializable;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import java.util.List;
-import java.util.Scanner;
 
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
-//import org.apache.logging.log4j.LogManager;
 import org.hibernate.Transaction;
-//import org.jboss.logging.Logger;
 
-public class Customer extends User {
+import main.SessionFactoryBuilder;
 
-    public int cust_id;
+public class Customer extends User implements Serializable{
+	private static final long serialVersionUID = 1L;
+	public int cust_id;
     public double accountBalance;
     // public User User;
 
@@ -36,42 +31,48 @@ public class Customer extends User {
 
     // }
 
-    public Customer(int ID, int password, String role, String name) {
+    public Customer(int cust_id, double accountBalance) {
         super();
-        // this.User = new User(ID, password, role, name);
+        this.cust_id = 0;
+        this.accountBalance = 0.0;
+    }
+
+    public Customer(int id, String password, String name, String gender, String role) {
+        super();
+        // this.User = new User(id, password, name, gender, role);
         cust_id = 0;
         accountBalance = 0.0;
 
     }
 
-    public Customer(int ID, int password, String role, String name, double accountBalance, int ui) {
-        super(ID, password, role, name);
-        // this.User = new User(ID, password, role, name);
+    public Customer(int id, String password, String name, String gender, String role, double accountBalance, int ui) {
+        super(id, password, name, gender, role);
+        // this.User = new User(id, password, name, gender, role);
         // super();
         this.cust_id = ui;
         this.accountBalance = accountBalance;
 
     }
 
-    public Customer(int ID, int password, String role, String name, int ui) {
-        super(ID, password, role, name);
+    public Customer(int id, String password, String name, String gender, String role, int ui) {
+        super(id, password, name, gender, role);
         this.cust_id = ui;
-        // this.User = new User(id, password, role, name);
+        // this.User = new User(id, password, name, gender, role);
 
     }
 
     public Customer(User u, double accountBalance, int ui) {
         this.cust_id = ui;
         this.accountBalance = accountBalance;
-        // this.User = new User(id, password, role, name);
+        // this.User = new User(id, password, name, gender, role);
 
     }
 
-    public Customer(int ID, int password, String role, String name, double accountBalance, int ui, User User) {
-        super(ID, password, role, name);
+    public Customer(int id, String password, String name, String gender, String role, double accountBalance, int ui, User User) {
+        super(id, password, name, gender, role);
         this.cust_id = ui;
         this.accountBalance = accountBalance;
-        // User = new User(ui, password, role, name);
+        // User = new User(id, password, name, gender, role);
 
     }
 
@@ -147,6 +148,8 @@ public class Customer extends User {
         cust.setCust_Id(id);
 
         cust.setPassword(password);
+        
+        cust.setGender(gender);
 
         cust.setRole(role);
 
@@ -194,7 +197,8 @@ public class Customer extends User {
         return cust;
     }
 
-    public Customer read(int id, int pword, Transaction trans) {
+    //Corrected
+    public Customer read(int id, String pword) {
 
         Session session = SessionFactoryBuilder.getSessionFactory().openSession();
         Transaction transaction = null;
@@ -206,9 +210,8 @@ public class Customer extends User {
             // Load the entity by ID
             readCustomer = session.get(Customer.class, id);
 
-            if (readCustomer.getPassword() == pword)
-            {
-                 transaction.commit();
+            if (readCustomer.getPassword() == pword) {
+                transaction.commit();
             }
 
         } catch (Exception e) {
@@ -223,6 +226,31 @@ public class Customer extends User {
         return readCustomer;
     }
 
+    public Customer read(int id) {
+
+        Session session = SessionFactoryBuilder.getSessionFactory().openSession();
+        Transaction transaction = null;
+        Customer readCustomer = null;
+
+        try {
+            transaction = session.beginTransaction();
+
+            // Load the entity by ID
+            readCustomer = session.get(Customer.class, id);
+
+                transaction.commit();
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return readCustomer;
+    }
 
     public void viewBookings() {
 
@@ -236,38 +264,18 @@ public class Customer extends User {
 
     }
 
-    public void login() {
-
-        JFrame frame = new JFrame("Grizzly's Entertainment: Equipment");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JInternalFrame loginInternalFrame = new JInternalFrame("frame 1", true, true, true, true);
-
-        JButton viewEquip = new JButton("View Equipment");
-
-        JButton viewTrans = new JButton("View Transaction");
-
-        loginInternalFrame.add(viewEquip);
-
-        loginInternalFrame.add(viewTrans);
-
-        frame.add(loginInternalFrame);
-
-        loginInternalFrame.setVisible(true);
-
-        frame.setSize(700, 800);
-        frame.setLayout(null);
-        frame.setResizable(true);
-        frame.setVisible(true);
-
-    }
+	@Override
+	public String toString() {
+		return "Customer ID: " + cust_id +
+				"Password: " + password +
+				"Name: " + name +
+				"Gender: " + gender +
+				"Role: " + role +
+				"AccountBalance: " + accountBalance;
+	}
 
     // public String toString() {
     // return "Customer [cust_id=" + cust_id + ", accountBalance=" + accountBalance
     // + ", User=" + User + "]";
     // }
-    public String toString() {
-        return "Customer [cust_id=" + cust_id + ", accountBalance=" + accountBalance + "]";
-    }
-
 }
