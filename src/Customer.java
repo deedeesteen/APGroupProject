@@ -112,6 +112,25 @@ public class Customer extends User implements Serializable{
             transaction.commit();
         }
 
+	    Logger logger = LogManager.getLogger(Customer.class);
+    Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+
+    Transaction transaction = session.beginTransaction();
+
+    if (!transaction.isActive()) {
+        transaction.begin();
+        logger.info("Transaction began for creating customer.");
+    }
+
+    session.save(cust);
+    logger.info("Customer created: " + cust);
+
+    if (transaction.isActive()) {
+        transaction.commit();
+        logger.info("Transaction committed after creating customer.");
+    }
+
+
         session.close();
     }
 
