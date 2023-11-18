@@ -75,6 +75,8 @@ public class CustomerDashboard extends JFrame {
                  } catch (Exception ex) {
                      ex.printStackTrace();
                  }
+                    logger.error("Exception occurred while setting selected window", ex);
+
             }
         });
         
@@ -119,6 +121,8 @@ public class CustomerDashboard extends JFrame {
         cdframe.setSize(1500, 800);
         cdframe.setVisible(true);
         cdframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        logger.info("Customer Dashboard initialized successfully.");
     }
 
     public JMenu createIconMenu(JMenu menu) {
@@ -138,6 +142,8 @@ public class CustomerDashboard extends JFrame {
     }
 
     public static void main(String args[]) {
+
+        logger.debug("CustomerDashboard application started.");
         new CustomerDashboard();
     }
 }
