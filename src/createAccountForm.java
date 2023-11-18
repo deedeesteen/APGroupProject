@@ -143,7 +143,7 @@ public class createAccountForm {
                 User.setRole(userrole);
                 User.setid(userId);
                 User.setName(userName);
-                User.setPassword(userpassword);
+                //User.setPassword(userpassword);
 
                 System.out.println(userName);
                 System.out.println(userrole);
@@ -152,7 +152,7 @@ public class createAccountForm {
                     cust.setCust_Id(userId);
                     // Customer newCustomer = new Customer(new User(userId, userpassword, userrole,
                     // userName), userId);
-                    Customer newCustomer = new Customer(userId, userpassword, userrole, userName, userId);
+                    Customer newCustomer = new Customer(userrole, userName, userId);
                     System.out.println(newCustomer);
                     // Customer newCustomer = new User(userId, userpassword, userrole, userName);
                     // Customer newCustomer = new Customer(userId, userpassword, userrole, userName,

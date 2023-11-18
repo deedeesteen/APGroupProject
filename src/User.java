@@ -1,33 +1,38 @@
-import java.util.Set;
-
+import java.io.Serializable;
 import javax.swing.JOptionPane;
 
-import org.hibernate.Session;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-public class User {
+import main.SessionFactoryBuilder;
 
-    protected int id;
-    protected int password;
-    protected String role;
+public class User implements Serializable {
+	private static final long serialVersionUID = 1L;
+	protected int id;
+	protected String password;
     protected String name;
+    protected String gender;
+    protected String role;
 
     private SessionFactory factory;
 
     public User() {
         id = 000;
-        password = 111;
-        role = "Default";
+        password = "Default";
         name = "Default";
+        gender = "Male";
+        role = "Default";
     }
 
-    public User(int i, int password2, String r, String n) {
+    public User(int i, String password2, String n, String g, String r) {
         this.id = i;
         this.password = password2;
-        this.role = r;
         this.name = n;
+        this.gender = g;
+        this.role = r;
     }
 
     public User(SessionFactory factory) {
@@ -45,21 +50,13 @@ public class User {
     public void setid(int id) {
         this.id = id;
     }
-
-    public int getPassword() {
+    
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setPassword(String pword) {
+        this.password = pword;
     }
 
     public String getName() {
@@ -69,13 +66,26 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String toString() {
-        return "id: " + id + " Password: " + password + " Name: " + name + " Role: " + role;
+    
+    public String getGender() {
+        return gender;
     }
 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-    public User read(int id) {
+    public String getRole() {
+        return role;
+    }
+
+    // public abstract void Login();
+
+    // public abstract void viewBookings();
+
+    // public abstract void viewEquipment();
+
+	public User read(int id) {
         try (Session session = SessionFactoryBuilder.getSessionFactory().openSession()) {
             System.out.println(id);
             return session.get(User.class, id);
@@ -127,5 +137,4 @@ public class User {
             session.close();
         }
     }
-
 }

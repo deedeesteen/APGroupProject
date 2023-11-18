@@ -1,25 +1,30 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class Employee extends User {
+import main.SessionFactoryBuilder;
 
-    public int emp_id;
+public class Employee extends User implements Serializable {
+	private static final long serialVersionUID = 1L;
+	public int emp_id;
 
     public Employee() {
         super();
         emp_id = 0;
     }
 
-    public Employee(int ID, int password, String role, String name) {
-        emp_id = 0;
-
+    public Employee(int id, String password, String name, String gender, String role) {
+    	super();
+    	emp_id = 0;
     }
 
-    public Employee(int id, int password, String role, String name, int empid) {
-        super(empid, empid, role, name);
+    public Employee(int id, String password, String name, String gender, String role, int empid) {
+        super(id, password, name, gender, role);
         this.emp_id = empid;
     }
 
@@ -81,6 +86,8 @@ public class Employee extends User {
         emp.setEmp_id(id);
 
         emp.setPassword(password);
+        
+        emp.setGender(gender);
 
         emp.setRole(role);
 
@@ -128,7 +135,7 @@ public class Employee extends User {
         return emp;
     }
 
-    public Employee read(int id) {
+    public Employee read(int id, String password) {
         try (Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession()) {
             return session.get(Employee.class, id);
         }
@@ -143,7 +150,11 @@ public class Employee extends User {
     }
 
     @Override
-    public String toString() {
-        return "Employee [emp_id=" + emp_id + "]";
-    }
+	public String toString() {
+		return "Employee ID: " + emp_id +
+				"Password: " + password +
+				"Name: " + name +
+				"Gender: " + gender +
+				"Role: " + role;
+	}
 }
