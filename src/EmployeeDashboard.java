@@ -68,6 +68,10 @@ public class EmployeeDashboard extends JFrame {
         
         JMenuItem equip = new JMenuItem("All Equipment");
         JMenuItem requests = new JMenuItem("Rental Requests");
+
+	equip.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
+        requests.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+		
 		//Add JMenu components to the MenuBar
 		menu.add(equip);
 		menu.add(requests);
