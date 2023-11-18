@@ -57,6 +57,8 @@ public class CustomerDashboard extends JFrame {
         bkgrdlabel.setBounds(370, 0, bkgrd.getIconWidth(), bkgrd.getIconHeight());
 
         JMenu menu = new JMenu("Menu");
+        menu.setFont(new Font("Verdana", Font.BOLD, 15));
+        menu.setForeground(Color.WHITE);
         
         menuBar = new JMenuBar();
         menuBar.add(createIconMenu(menu));
