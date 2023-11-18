@@ -23,6 +23,9 @@ import javax.swing.JInternalFrame;
 //import client.Customer;
 
 public class CustomerDashboard extends JFrame {
+
+    private static final Logger logger = LogManager.getLogger(CustomerDashboard.class);
+    
     private static final long serialVersionUID = 1L;
     private JFrame cdframe;
     private JDesktopPane desktop;
@@ -54,6 +57,8 @@ public class CustomerDashboard extends JFrame {
         bkgrdlabel.setBounds(370, 0, bkgrd.getIconWidth(), bkgrd.getIconHeight());
 
         JMenu menu = new JMenu("Menu");
+        menu.setFont(new Font("Verdana", Font.BOLD, 15));
+        menu.setForeground(Color.WHITE);
         
         menuBar = new JMenuBar();
         menuBar.add(createIconMenu(menu));
@@ -62,21 +67,31 @@ public class CustomerDashboard extends JFrame {
         
         JMenuItem custinfo = new JMenuItem("Customer Information");
         JMenuItem equip = new JMenuItem("Rent Equipment");
+
+        custinfo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
+        equip.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+        
         equip.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	 RentEquipment rental = new RentEquipment();
                  desktop.add(rental);
+                 rental.setVisible(true);
                  try {
                      rental.setSelected(true);
                  } catch (Exception ex) {
                      ex.printStackTrace();
                  }
+                    logger.error("Exception occurred while setting selected window", ex);
+
             }
         });
         
         JMenuItem transac = new JMenuItem("Transactions");
         JMenuItem contact = new JMenuItem("Contact Us");
+
+        transac.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK));
+        contact.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
 
         transac.addActionListener(new ActionListener() {
             @Override
@@ -116,6 +131,8 @@ public class CustomerDashboard extends JFrame {
         cdframe.setSize(1500, 800);
         cdframe.setVisible(true);
         cdframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        logger.info("Customer Dashboard initialized successfully.");
     }
 
     public JMenu createIconMenu(JMenu menu) {
@@ -135,6 +152,8 @@ public class CustomerDashboard extends JFrame {
     }
 
     public static void main(String args[]) {
+
+        logger.debug("CustomerDashboard application started.");
         new CustomerDashboard();
     }
 }

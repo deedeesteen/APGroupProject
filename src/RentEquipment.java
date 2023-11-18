@@ -54,7 +54,11 @@ public class RentEquipment extends JInternalFrame {
                 String selectedCategory = (String) categoryComboBox.getSelectedItem();
 
                 // Simulated data, replace with actual data retrieval logic
+<<<<<<< HEAD
                 String[] columnNames = { "Equipment Name", "Availability", "Cost" };
+=======
+                String[] columnNames = {"Equipment", "Availability", "Cost"};
+>>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
                 Object[][] data = {
                         { "Equipment1", "Available", "$50" },
                         { "Equipment2", "Not Available", "$75" },

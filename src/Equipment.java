@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 //import javax.swing.JPanel;
@@ -36,33 +37,96 @@ public class Equipment extends Customer {
     public int day;
     public int month;
     public int year;
+=======
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-    public String Category;
+import javax.swing.JOptionPane;
 
-    public boolean Availability;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+>>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 
+public class Equipment extends Customer implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+	public String equip_id;
+	public String equip_name;
+    public String category;
+    public boolean availability;
     public double cost;
+    
+    private Connection dbConn = null;
+	private Statement stmt;
+	private ResultSet result;
+	private static final Logger logger = LogManager.getLogger(DBConnectorFactory.class);
 
+<<<<<<< HEAD
     public Date date;
 
     public int getEquipcust_id() {
         return equipcust_id;
+=======
+    public Equipment() {
+    	dbConn = DBConnectorFactory.getDatabaseConnection();
+    	this.equip_id = "";
+    	this.equip_name = "";
+        this.category = "";
+        this.availability = false;
+        this.cost = 0.0;
+>>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
     }
 
+    public Equipment(String equip_id, String equip_name, String category, boolean availability, double cost) {
+        this.equip_id = equip_id;
+    	this.equip_name = equip_name;
+        this.category = category;
+        this.availability = false;
+        this.cost = cost;
+    }
+
+    /*public Equipment(int equipcust_id, double accountBalance, int ui, String c, boolean a, double cost, Date date) {
+        super(ui, accountBalance);
+        this.equipcust_id = equipcust_id;
+        this.Availability = a;
+        this.category = c;
+        this.cost = cost;
+    }*/
+    
+    public String getEquip_id() {
+        return equip_id;
+    }
+
+    public void setEquip_id(String equip_id) {
+        this.equip_id = equip_id;
+    }
+    
+    public String getEquip_name() {
+		return equip_name;
+	}
+
+	public void setEquip_name(String equip_name) {
+		this.equip_name = equip_name;
+	}
+	
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(String category) {
-        Category = category;
+        category = category;
     }
 
     public boolean isAvailability() {
-        return Availability;
+        return availability;
     }
 
     public void setAvailability(boolean availability) {
-        Availability = availability;
+        availability = false;
     }
 
     public double getCost() {
@@ -73,6 +137,7 @@ public class Equipment extends Customer {
         this.cost = cost;
     }
 
+<<<<<<< HEAD
     public Date getDate() {
         return date;
     }
@@ -109,6 +174,93 @@ public class Equipment extends Customer {
     }
 
     public void EquipmentForm() {
+=======
+	@Override
+	public String toString() {
+		return "Equipment ID: " + equip_id +
+				"Equipment Name: " + equip_name +
+				"Category: " + category +
+				"Availability: " + availability +
+				"Cost: " + cost;
+	}
+
+	public void createEquip(String equip_id, String equip_name, String category, boolean availability, double cost) {
+		String insertSQL = "INSERT INTO grizzlyentertainment.equipment (equip_id, equip_name, category, availability, cost) VALUES ('" +equip_id+ 
+				"','" +equip_name+ "','" +category+ "'," +booleanToBit(availability)+ ",'" +cost+"');";
+		try {
+			stmt = dbConn.createStatement();
+			int inserted = stmt.executeUpdate(insertSQL);
+			if (inserted == 1) {
+				System.out.println("Equipment record inserted successfully!");
+				logger.log(Level.INFO, "Equipment record inserted successfully");
+				return;
+			}else {
+				JOptionPane.showMessageDialog(null, "Record Insertion Failed", "Insertion status", JOptionPane.ERROR_MESSAGE);
+				logger.log(Level.WARN, "Record Insertion Failed");
+			}
+		} catch(SQLException e) {
+			System.err.println("SQL Exception: " + e.getMessage());
+			logger.log(Level.ERROR, "Error- SQL Exception: " + e.getMessage(), e);
+		} catch(Exception e) {
+			System.err.println("Unexpected Error: " + e.getMessage());
+			logger.log(Level.ERROR, "Unexpected Error: " + e.getMessage(), e);
+		}
+	}
+	
+	private int booleanToBit(boolean availability) {
+		return availability ? 1 : 0; //0 - false; 1 - true
+	}
+
+	public void readAllEquip() {
+		String readAllSQL = "SELECT equip_id, equip_name, category, availability, cost FROM grizzlyentertainment.equipment";
+		try {
+			stmt = dbConn.createStatement();
+			result = stmt.executeQuery(readAllSQL);
+			while (result.next()) {
+				String equip_id = result.getString("equip_id");
+				String equip_name = result.getString("equip_name");
+				String category = result.getString("category");
+				boolean availability = result.getBoolean("availability");
+				double cost = result.getDouble("cost");
+				System.out.println("Equipment ID: " + equip_id +
+						"\nEquipment Name: " + equip_name +
+						"\nCategory: " + category +
+						"\nAvailability: " + availability +
+						"\nCost: " + cost + "\n");
+			}
+		} catch(SQLException e) {
+			System.err.println("SQL Exception: " + e.getMessage());
+			logger.log(Level.ERROR, "Error- SQL Exception: " + e.getMessage(), e);
+		} catch(Exception e) {
+			System.err.println("Unexpected Error: " + e.getMessage());
+			logger.log(Level.ERROR, "Unexpected Error: " + e.getMessage(), e);
+		}
+	}
+	
+	public void updateEquip(String equip_id, boolean availability) {
+		String updateSQL = "UPDATE grizzlyentertainment.equipment SET availability = " + booleanToBit(availability) + " WHERE equip_id = '" + equip_id + "';";
+		try {
+			stmt = dbConn.createStatement();
+			int updated = stmt.executeUpdate(updateSQL);
+			if (updated == 1) {
+				System.out.println("Equipment record updated successfully!");
+				logger.log(Level.INFO, "Equipment record updated successfully");
+				return;
+			}else {
+				JOptionPane.showMessageDialog(null, "Record Update Failed", "Update status", JOptionPane.ERROR_MESSAGE);
+				logger.log(Level.WARN, "Record Update Failed");
+			}
+		} catch(SQLException e) {
+			System.err.println("SQL Exception: " + e.getMessage());
+			logger.log(Level.ERROR, "Error- SQL Exception: " + e.getMessage(), e);
+		} catch(Exception e) {
+			System.err.println("Unexpected Error: " + e.getMessage());
+			logger.log(Level.ERROR, "Unexpected Error: " + e.getMessage(), e);
+		}
+	}
+	
+	/*public void EquipmentForm() {
+>>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 
         JFrame frame;
 
@@ -263,6 +415,7 @@ public class Equipment extends Customer {
         Frame1.setSize(500, 480);
         frame.setVisible(true);
         frame.setSize(600, 600);
+<<<<<<< HEAD
 
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -401,4 +554,142 @@ public class Equipment extends Customer {
         Equipment equipment = new Equipment();
         equipment.EquipmentForm();
     }
+=======
+
+        submitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                /*
+                 * Equipment equip = new Equipment();
+                 * Customer cust = new Customer();
+                 * 
+                 * int day = Integer.parseInt(dayTextField.getText().trim());
+                 * int month = Integer.parseInt(monthTextField.getText().trim());
+                 * int year = Integer.parseInt(yearTextField.getText().trim());
+                 * equipcust_id = Integer.parseInt(idTextField.getText().trim());
+                 * String category = categoryComboBox.getSelectedItem().toString().trim();
+                 * cust_id = 17;
+                 * 
+                 * boolean availability;
+                 * // cost = equip.getCost();
+                 * 
+                 * if (falseRadioButton.isSelected()) {
+                 * availability = false;
+                 * } else {
+                 * availability = true;
+                 * }
+                 * 
+                 * equip.setAvailability(availability);
+                 * equip.setCategory(category);
+                 * equip.setEquipcust_id(cust_id);
+                 * equip.setCust_Id(cust_id);
+                 * equip.setCost(25000.00);
+                 * 
+                 * System.out.println(availability);
+                 * System.out.println(equipcust_id);
+                 * System.out.print(day);
+                 * System.out.print(month);
+                 * System.out.println(year);
+                 * System.out.println(category);
+                 * System.out.println(cost);
+                 * System.out.println(cust_id);
+                 * 
+                 * // cost = equip.setCost(25000);
+                 * SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                 * 
+                 * Session session =
+                 * SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+                 * Transaction transaction = null;
+                 * 
+                 * try {
+                 * transaction = session.beginTransaction();
+                 * 
+                 * date = sdf.parse(String.format("%02d/%02d/%04d", month, day, year));
+                 * categoryJTextArea.setText("Chosen Date: " + date);
+                 * System.out.println(date);
+                 * categoryJTextArea.setText("Availibility: " + availability);
+                 * equip.setDate(date);
+                 * 
+                 * System.out.println(equipcust_id);
+                 * Equipment newEquipment = new Equipment(cust_id, accountBalance, equipcust_id,
+                 * category,
+                 * availability, cost, date);
+                 * 
+                 * session.save(newEquipment);
+                 * 
+                 * transaction.commit();
+                 * session.close();
+                 * } catch (RuntimeException re) {
+                 * re.printStackTrace();
+                 * if (transaction != null && transaction.isActive()) {
+                 * transaction.rollback();
+                 * }
+                 * re.printStackTrace();
+                 * } catch (ParseException pe) {
+                 * pe.printStackTrace();
+                 * }
+                 */
+                /*Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+                Transaction transaction = null;
+
+                try {
+                    transaction = session.beginTransaction();
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+                    Equipment equip = new Equipment();
+                    // equipcust_id = Integer.parseInt(idTextField.getText().trim());
+
+                    int day = Integer.parseInt(dayTextField.getText().trim());
+                    int month = Integer.parseInt(monthTextField.getText().trim());
+                    int year = Integer.parseInt(yearTextField.getText().trim());
+                    String category = categoryComboBox.getSelectedItem().toString().trim();
+                    boolean availability;
+                    cust_id = 17;
+
+                    if (falseRadioButton.isSelected()) {
+                        availability = false;
+                    } else {
+                        availability = true;
+                    }
+
+                    // Assuming cust_id is set to a valid value, e.g., 17
+                    // The equipcust_id will be the same as the cust_id of the associated customer
+                    int equipcust_id = 37;
+                    int cust_id = 49;
+                    System.out.println(equipcust_id);
+                    System.out.println(cust_id);
+
+                    date = sdf.parse(String.format("%02d/%02d/%04d", month, day, year));
+                    categoryJTextArea.setText("Chosen Date: " + date);
+                    System.out.println(date);
+                    categoryJTextArea.setText("Availibility: " + availability);
+                    equip.setDate(date);
+
+                    Equipment newEquipment = new Equipment(cust_id, accountBalance, equipcust_id, category,
+                            availability, cost, date);
+
+                    session.save(newEquipment);
+
+                    transaction.commit();
+                    session.close();
+                } catch (RuntimeException re) {
+                    re.printStackTrace();
+                    if (transaction != null && transaction.isActive()) {
+                        transaction.rollback();
+                    }
+                    re.printStackTrace();
+                } catch (ParseException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+        });
+    }
+    
+    public static void main(String[] args) {
+
+        Equipment equipment = new Equipment();
+        //equipment.EquipmentForm();
+    }*/
+>>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 }

@@ -2,7 +2,6 @@
 /* 
 import client.Customer;
 import client.Employee;
-import client.Equipment;
 import client.User;
 */
 import javax.swing.JFrame;
@@ -27,8 +26,8 @@ import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UserSignUp extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -44,7 +43,7 @@ public class UserSignUp extends JFrame {
 	private Color GRIZ = new Color(130, 110, 90);
 	private Color TAN = new Color(232, 231, 177);
 	private Color ROSY = new Color(255, 87, 70);
-
+	
 	public UserSignUp() {
 		this.signUpAction();
 	}
@@ -142,6 +141,7 @@ public class UserSignUp extends JFrame {
 		signUpBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.log(Level.INFO, "The 'Sign Up' Button was clicked.");
 				signUpnSave();
 			}
 		});
@@ -160,6 +160,7 @@ public class UserSignUp extends JFrame {
 		lgnButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.log(Level.INFO, "The 'Login' Button was clicked.");
 				new UserLogin();
 				frame.dispose(); // Closes the frame
 			}
@@ -228,60 +229,60 @@ public class UserSignUp extends JFrame {
 
 		User User = new User();
 
-		// Customer cust = new Customer();
-		int userId = Integer.parseInt(idTextField.getText().trim());
-		String userpassword = (passwordTextField.getText().trim());
-		String userName = (nameTextField.getText().trim());
-		String userRole = "";
-		String usergender = "";
+        // Customer cust = new Customer();
+        int userId = Integer.parseInt(idTextField.getText().trim());
+        String userpassword = (passwordTextField.getText().trim());
+        String userName = (nameTextField.getText().trim());
+        String userRole = "";
+        String usergender = "";
+        
+        if (custCheckbox.isSelected()) {
+        	userRole = "Customer";
+        } else {
+        	if (empCheckbox.isSelected()) {
+        		userRole = "Employee";
+        	}
+        }
+        
+        if (maleRadioButton.isSelected()) {
+               usergender = "Male";
+        } else { 
+       	 	if (femaleRadioButton.isSelected()) {
+       	 		usergender = "Female";
+       	 	}
+        }
+        
+        
+        User.setid(userId);
+        User.setPassword(userpassword);
+        User.setName(userName);
+        User.setRole(userRole);
+        User.setGender(usergender);
+        
+        if (userRole.equals("Customer")) {
+            cust.setCust_Id(userId);
+            // Customer newCustomer = new Customer(new User(userId, userpassword, userRole,
+            // userName), userId);
+            Customer newCustomer = new Customer(userId, userpassword, userName, usergender, userRole, userId);
+            System.out.println(newCustomer);
+            // Customer newCustomer = new User(userId, userpassword, userRole, userName);
+            // Customer newCustomer = new Customer(userId, userpassword, userRole, userName,
+            // userId);
+            User.create(newCustomer);
 
-		if (custCheckbox.isSelected()) {
-			userRole = "Customer";
-		} else {
-			if (empCheckbox.isSelected()) {
-				userRole = "Employee";
-			}
-		}
+            Equipment equip = new Equipment();
 
-		if (maleRadioButton.isSelected()) {
-			usergender = "Male";
-		} else {
-			if (femaleRadioButton.isSelected()) {
-				usergender = "Female";
-			}
-		}
+            equip.EquipmentForm();
 
-		User.setid(userId);
-		User.setPassword(userpassword);
-		User.setName(userName);
-		User.setRole(userRole);
-		User.setGender(usergender);
-
-		if (userRole.equals("Customer")) {
-			cust.setCust_Id(userId);
-			// Customer newCustomer = new Customer(new User(userId, userpassword, userRole,
-			// userName), userId);
-			Customer newCustomer = new Customer(userId, userpassword, userName, usergender, userRole, userId);
-			System.out.println(newCustomer);
-			// Customer newCustomer = new User(userId, userpassword, userRole, userName);
-			// Customer newCustomer = new Customer(userId, userpassword, userRole, userName,
-			// userId);
-			User.create(newCustomer);
-
-			Equipment equip = new Equipment();
-
-			equip.EquipmentForm();
-
-		} else {
-			if (userRole.equals("Employee")) {
-				emp.setEmp_id(userId);
-				Employee newEmployee = new Employee(userId, userpassword, userName, usergender, userRole, userId);
-				User.create(newEmployee);
-			}
-		}
-
-		JOptionPane.showMessageDialog(null, "Account Created Successfully!", "SIGN UP STATUS",
-				JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            if (userRole.equals("Employee")) {
+                emp.setEmp_id(userId);
+                Employee newEmployee = new Employee(userId, userpassword, userName, usergender, userRole, userId);
+                User.create(newEmployee);
+            }
+        }
+        
+        JOptionPane.showMessageDialog(null, "Account Created Successfully!", "SIGN UP STATUS", JOptionPane.INFORMATION_MESSAGE);
 		new UserLogin();
 	}
 
