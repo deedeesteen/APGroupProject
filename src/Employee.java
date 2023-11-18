@@ -11,6 +11,7 @@ import main.SessionFactoryBuilder;
 
 public class Employee extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private static final Logger logger = LogManager.getLogger(Employee.class);
 	public int emp_id;
 
     public Employee() {
@@ -49,6 +50,7 @@ public class Employee extends User implements Serializable {
 
         if (transaction.isActive()) {
             transaction.commit();
+	    logger.info("Employee created successfully: " + emp.getEmp_id());
         }
 
         session.close();
@@ -96,6 +98,7 @@ public class Employee extends User implements Serializable {
         session.update(emp);
 
         transaction.commit();
+	logger.info("Employee updated successfully: " + emp.getEmp_id());
 
         session.close();
 
@@ -112,6 +115,7 @@ public class Employee extends User implements Serializable {
         EmployeeList = (List<Employee>) session.createQuery("FROM Employee").getResultList();
 
         transaction.commit();
+	logger.info("Retrieved all employees successfully!");
 
         session.close();
 
@@ -129,6 +133,7 @@ public class Employee extends User implements Serializable {
         session.delete(emp);
 
         transaction.commit();
+	logger.info("Employee deleted successfully: " + emp.getEmp_id());
 
         session.close();
 
