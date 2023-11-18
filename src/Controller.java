@@ -38,9 +38,11 @@ public class Controller {
 			return true;
 		}catch(FileNotFoundException fnf)
 		{
+			logger.error("FileNotFoundException thrown: Error saving record", fnf);
 			fnf.printStackTrace();
 			System.err.println("FileNotFoundException thrown: Error saving record");
 		}catch(IOException ioe){
+			logger.error("IOException thrown: Error saving record", ioe);
 			ioe.printStackTrace();
 			System.err.println("IOException thrown: Error saving record");
 
@@ -77,6 +79,7 @@ public class Controller {
             User user = (User)ois.readObject();
             return user;
         } catch (IOException | ClassNotFoundException e) {
+	    logger.error("Exception thrown: Error reading file", e);
             e.printStackTrace();
         }
         return null;
@@ -103,9 +106,11 @@ public class Controller {
 				}
 			}catch(FileNotFoundException fnf)
 			{
+				logger.error("FileNotFoundException thrown: Error saving record", fnf);
 				fnf.printStackTrace();
 				System.err.println("FileNotFoundException thrown: Error saving record");
 			}catch(IOException ioe){
+				logger.error("IOException thrown: Error saving record", ioe);
 				ioe.printStackTrace();
 				System.err.println("IOException thrown: Error saving record");
 
@@ -130,9 +135,13 @@ public class Controller {
                 for (User user : list) {
                     // Print user information here if needed
                     System.out.println("ID: " + user.getid() + ", password: " + user.getPassword());
+			
+		    logger.info("ID: " + user.getid() + ", password: " + user.getPassword());
                     
                     JOptionPane.showMessageDialog(null, "Login Successful!", 
 							"Login Status" , JOptionPane.INFORMATION_MESSAGE);
+			
+		    logger.info("Login successful for: " + user.getName());
 
                     JOptionPane.showMessageDialog(null,"Welcome " + user.getName() + 
                     		"\nID Num: " + user.getid() ,"INFO", JOptionPane.INFORMATION_MESSAGE);
@@ -142,9 +151,11 @@ public class Controller {
                 System.err.println("Error: Unexpected object type in the file");
             }
         } catch (FileNotFoundException fnf) {
+	    logger.error("FileNotFoundException thrown: Error reading file", fnf);
             fnf.printStackTrace();
             System.err.println("FileNotFoundException thrown: Error reading file");
         } catch (IOException | ClassNotFoundException | ClassCastException e) {
+	    logger.error("Exception thrown: Error reading file", e);
             e.printStackTrace();
             System.err.println("Exception thrown: Error reading file");
         }
