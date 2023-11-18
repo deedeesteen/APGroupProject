@@ -10,12 +10,20 @@ import org.apache.logging.log4j.Logger;
 
 public class CustomerInformation extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
+
+    	private static final Logger logger = LogManager.getLogger(CustomerInformation.class);
+	
 	private ImageIcon bkgrd;
 	private JLabel custdash, infolabel, bkgrdlabel;
 	private JInternalFrame internalFrame;
 	private Color GRIZ = new Color(130, 110, 90);
 	private Color TAN = new Color(232, 231, 177);
 	private Color ROSY = new Color(255, 87, 70);
+
+	 public CustomerInformation() {
+        logger.info("CustomerInformation instance created.");
+        this.custInfoGUI();
+    }
 	
 	public CustomerInformation() {
 		this.custInfoGUI();
@@ -25,13 +33,17 @@ public class CustomerInformation extends JInternalFrame {
 		internalFrame = new JInternalFrame("Customer Information");
 
 		custdash = new JLabel("Customer Dashboard");
+		logger.debug("Setting up custdash label...");
 		custdash.setFont(new Font("Verdana", Font.BOLD, 30));
 		custdash.setForeground(Color.WHITE);
 		custdash.setBounds(400, 50, 1000, 50);
 		
 		infolabel = new JLabel("Customer Information");
+		logger.debug("Setting up infolabel...");
 		infolabel.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 30));
 		infolabel.setForeground(ROSY);
 		infolabel.setBounds(505, 50, 1000, 50);
+
+		logger.info("CustomerInformation GUI setup completed.");
 	}
 }
