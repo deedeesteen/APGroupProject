@@ -14,7 +14,8 @@ import org.apache.logging.log4j.Logger;
 import client.User;
 
 public class Controller {
-	
+
+	private static final Logger logger = LogManager.getLogger(Controller.class);
 	
 	//List<User> userInfoList = new ArrayList<>();
 
