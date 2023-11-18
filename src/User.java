@@ -1,18 +1,18 @@
 import java.io.Serializable;
 import javax.swing.JOptionPane;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import main.SessionFactoryBuilder;
+//import main.SessionFactoryBuilder;
 
 public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
-	protected int id;
-	protected String password;
+    private static final long serialVersionUID = 1L;
+    protected int id;
+    protected String password;
     protected String name;
     protected String gender;
     protected String role;
@@ -50,7 +50,7 @@ public class User implements Serializable {
     public void setid(int id) {
         this.id = id;
     }
-    
+
     public String getPassword() {
         return password;
     }
@@ -66,7 +66,7 @@ public class User implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public String getGender() {
         return gender;
     }
@@ -79,13 +79,17 @@ public class User implements Serializable {
         return role;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     // public abstract void Login();
 
     // public abstract void viewBookings();
 
     // public abstract void viewEquipment();
 
-	public User read(int id) {
+    public User read(int id) {
         try (Session session = SessionFactoryBuilder.getSessionFactory().openSession()) {
             System.out.println(id);
             return session.get(User.class, id);
@@ -111,7 +115,6 @@ public class User implements Serializable {
                 // Customer cust = new Customer();
                 cust.create(cust, transaction);
 
-                
                 // System.out.println(cust);
             } else {
                 // Employee emp = new Employee();

@@ -2,16 +2,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import main.SessionFactoryBuilder;
+//import main.SessionFactoryBuilder;
 
-public class Customer extends User implements Serializable{
-	private static final long serialVersionUID = 1L;
-	public int cust_id;
+public class Customer extends User {
+    private static final long serialVersionUID = 1L;
+    public int cust_id;
     public double accountBalance;
     // public User User;
 
@@ -30,12 +30,6 @@ public class Customer extends User implements Serializable{
     // accountBalance = 0.0;
 
     // }
-
-    public Customer(int cust_id, double accountBalance) {
-        super();
-        this.cust_id = 0;
-        this.accountBalance = 0.0;
-    }
 
     public Customer(int cust_id, double accountBalance) {
         super();
@@ -74,7 +68,8 @@ public class Customer extends User implements Serializable{
 
     }
 
-    public Customer(int id, String password, String name, String gender, String role, double accountBalance, int ui, User User) {
+    public Customer(int id, String password, String name, String gender, String role, double accountBalance, int ui,
+            User User) {
         super(id, password, name, gender, role);
         this.cust_id = ui;
         this.accountBalance = accountBalance;
@@ -154,10 +149,10 @@ public class Customer extends User implements Serializable{
         cust.setCust_Id(id);
 
         cust.setPassword(password);
-        
+
         cust.setGender(gender);
 
-        cust.setRole(role);
+        // cust.setRole(role);
 
         cust.setAccountBalance(accountBalance);
 
@@ -203,7 +198,7 @@ public class Customer extends User implements Serializable{
         return cust;
     }
 
-    //Corrected
+    // Corrected
     public Customer read(int id, String pword) {
 
         Session session = SessionFactoryBuilder.getSessionFactory().openSession();
@@ -244,7 +239,7 @@ public class Customer extends User implements Serializable{
             // Load the entity by ID
             readCustomer = session.get(Customer.class, id);
 
-                transaction.commit();
+            transaction.commit();
 
         } catch (Exception e) {
             if (transaction != null) {
@@ -270,15 +265,15 @@ public class Customer extends User implements Serializable{
 
     }
 
-	@Override
-	public String toString() {
-		return "Customer ID: " + cust_id +
-				"Password: " + password +
-				"Name: " + name +
-				"Gender: " + gender +
-				"Role: " + role +
-				"AccountBalance: " + accountBalance;
-	}
+    @Override
+    public String toString() {
+        return "Customer ID: " + cust_id +
+                "Password: " + password +
+                "Name: " + name +
+                "Gender: " + gender +
+                "Role: " + role +
+                "AccountBalance: " + accountBalance;
+    }
 
     // public String toString() {
     // return "Customer [cust_id=" + cust_id + ", accountBalance=" + accountBalance

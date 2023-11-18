@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 public class CustomerInformation extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +16,7 @@ public class CustomerInformation extends JInternalFrame {
 	private Color GRIZ = new Color(130, 110, 90);
 	private Color TAN = new Color(232, 231, 177);
 	private Color ROSY = new Color(255, 87, 70);
-	
+
 	public CustomerInformation() {
 		this.custInfoGUI();
 	}
@@ -28,7 +28,7 @@ public class CustomerInformation extends JInternalFrame {
 		custdash.setFont(new Font("Verdana", Font.BOLD, 30));
 		custdash.setForeground(Color.WHITE);
 		custdash.setBounds(400, 50, 1000, 50);
-		
+
 		infolabel = new JLabel("Customer Information");
 		infolabel.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 30));
 		infolabel.setForeground(ROSY);

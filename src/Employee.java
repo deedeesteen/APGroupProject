@@ -2,16 +2,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import main.SessionFactoryBuilder;
+//import main.SessionFactoryBuilder;
 
 public class Employee extends User implements Serializable {
-	private static final long serialVersionUID = 1L;
-	public int emp_id;
+    private static final long serialVersionUID = 1L;
+    public int emp_id;
 
     public Employee() {
         super();
@@ -19,8 +19,8 @@ public class Employee extends User implements Serializable {
     }
 
     public Employee(int id, String password, String name, String gender, String role) {
-    	super();
-    	emp_id = 0;
+        super();
+        emp_id = 0;
     }
 
     public Employee(int id, String password, String name, String gender, String role, int empid) {
@@ -86,10 +86,10 @@ public class Employee extends User implements Serializable {
         emp.setEmp_id(id);
 
         emp.setPassword(password);
-        
+
         emp.setGender(gender);
 
-        emp.setRole(role);
+        // emp.setRole(role);
 
         // emp.setAccountBalance(accountBalance);
 
@@ -150,11 +150,11 @@ public class Employee extends User implements Serializable {
     }
 
     @Override
-	public String toString() {
-		return "Employee ID: " + emp_id +
-				"Password: " + password +
-				"Name: " + name +
-				"Gender: " + gender +
-				"Role: " + role;
-	}
+    public String toString() {
+        return "Employee ID: " + emp_id +
+                "Password: " + password +
+                "Name: " + name +
+                "Gender: " + gender +
+                "Role: " + role;
+    }
 }

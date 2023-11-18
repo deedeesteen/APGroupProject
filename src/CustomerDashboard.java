@@ -17,10 +17,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JInternalFrame;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
-import client.Customer;
+//import client.Customer;
 
 public class CustomerDashboard extends JFrame {
     private static final long serialVersionUID = 1L;
