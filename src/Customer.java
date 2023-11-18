@@ -112,7 +112,7 @@ public class Customer extends User implements Serializable{
             transaction.commit();
         }
 
-	    Logger logger = LogManager.getLogger(Customer.class);
+    Logger logger = LogManager.getLogger(Customer.class);
     Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
 
     Transaction transaction = session.beginTransaction();
