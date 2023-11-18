@@ -8,112 +8,42 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 //import client.User;
 
 public class Controller {
 
-<<<<<<< HEAD
 	// List<User> userInfoList = new ArrayList<>();
 
 	String filename = "Users.ser";
 
-	/*
-	 * public static boolean saveUserToFile(User u) {
-	 * String filename = "Users.ser";
-	 * try {
-	 * // ObjectOutputStream os = new ObjectOutputStream(new
-	 * // FileOutputStream("Employess.ser", true));
-	 * ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(filename,
-	 * true));
-	 * 
-	 * // String UserObject = Name + "\t" + Address + "\t" + TRN + "\t" +
-	 * phoneNumber +
-	 * // "\t" + dateOfBirth + "\n";
-	 * // doing this gives a string cannot cast to class
-	 * os.writeObject(u);
-	 * os.flush();
-	 * os.close();
-	 * System.out.println("Read User Record: " + u.getid() + "\t" +
-	 * u.getPassword());
-	 * System.out.println("User has been saved");
-	 * 
-	 * return true;
-	 * } catch (FileNotFoundException fnf) {
-	 * fnf.printStackTrace();
-	 * System.err.println("FileNotFoundException thrown: Error saving record");
-	 * } catch (IOException ioe) {
-	 * ioe.printStackTrace();
-	 * System.err.println("IOException thrown: Error saving record");
-	 * 
-	 * }
-	 * return false;
-	 * }
-	 * 
-	 * public static boolean readUserFromFile(int idNum, String pword, String
-	 * gender) {
-	 * // Reading the User record from the file
-	 * User user = loadUserRecord("Users.ser");
-	 * 
-	 * while (true) {
-	 * if (user != null) {
-	 * System.out.println(user.getid());
-	 * if (user.getid() == idNum) {
-	 * if (user.getPassword().equals(pword)) // Use equals() to compare strings
-	 * {
-	 * System.out.println("Read User Record: " + user);
-	 * return true;
-	 * } else {
-	 * System.out.println("Password is incorrect.");
-	 * }
-	 * }
-	 * }
-	 * return false;
-	 * }
-	 * }
-	 * 
-	 * public static User loadUserRecord(String filename) {
-	 * try (FileInputStream fis = new FileInputStream(filename);
-	 * ObjectInputStream ois = new ObjectInputStream(fis)) {
-	 * User user = (User) ois.readObject();
-	 * return user;
-	 * } catch (IOException | ClassNotFoundException e) {
-	 * e.printStackTrace();
-	 * }
-	 * return null;
-	 * }
-	 */
-
-=======
 	private static final Logger logger = LogManager.getLogger(Controller.class);
-	
-	//List<User> userInfoList = new ArrayList<>();
 
-	String filename = "Users.ser";
-	public static boolean saveUserToFile(User u)
-	{
+
+	public static boolean saveUserToFile(User u) {
 		String filename = "Users.ser";
 		try {
-			//ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("Employess.ser", true));
+			// ObjectOutputStream os = new ObjectOutputStream(new
+			// FileOutputStream("Employess.ser", true));
 			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(filename, true));
-			
-			//String UserObject = Name + "\t" + Address + "\t" + TRN + "\t" + phoneNumber + "\t" + dateOfBirth + "\n"; 
+
+			// String UserObject = Name + "\t" + Address + "\t" + TRN + "\t" + phoneNumber +
+			// "\t" + dateOfBirth + "\n";
 			// doing this gives a string cannot cast to class
 			os.writeObject(u);
 			os.flush();
 			os.close();
 			System.out.println("Read User Record: " + u.getid() + "\t" + u.getPassword());
 			System.out.println("User has been saved");
-			
+
 			return true;
-		}catch(FileNotFoundException fnf)
-		{
+		} catch (FileNotFoundException fnf) {
 			logger.error("FileNotFoundException thrown: Error saving record", fnf);
 			fnf.printStackTrace();
 			System.err.println("FileNotFoundException thrown: Error saving record");
-		}catch(IOException ioe){
+		} catch (IOException ioe) {
 			logger.error("IOException thrown: Error saving record", ioe);
 			ioe.printStackTrace();
 			System.err.println("IOException thrown: Error saving record");
@@ -121,44 +51,40 @@ public class Controller {
 		}
 		return false;
 	}
-	
-	 public static boolean readUserFromFile(int idNum, String pword, String gender)
-	 {
-     // Reading the User record from the file
-		 User user = loadUserRecord("Users.ser");
-		 
-		 while(true)
-		 {
-		 if (user != null) {
-		       System.out.println(user.getid());
-		        if (user.getid() == idNum) {
-		            if (user.getPassword().equals(pword)) // Use equals() to compare strings
-		            {
-		            	System.out.println("Read User Record: " + user);
-		            	return true;
-		            } else {
-		                System.out.println("Password is incorrect.");
-		            }
-		        }
-		 	}
-		 return false;
-		 }
-	 }
-	
+
+	public static boolean readUserFromFile(int idNum, String pword, String gender) {
+		// Reading the User record from the file
+		User user = loadUserRecord("Users.ser");
+
+		while (true) {
+			if (user != null) {
+				System.out.println(user.getid());
+				if (user.getid() == idNum) {
+					if (user.getPassword().equals(pword)) // Use equals() to compare strings
+					{
+						System.out.println("Read User Record: " + user);
+						return true;
+					} else {
+						System.out.println("Password is incorrect.");
+					}
+				}
+			}
+			return false;
+		}
+	}
+
 	public static User loadUserRecord(String filename) {
-        try (FileInputStream fis = new FileInputStream(filename);
-             ObjectInputStream ois = new ObjectInputStream(fis)) {
-            User user = (User)ois.readObject();
-            return user;
-        } catch (IOException | ClassNotFoundException e) {
-	    logger.error("Exception thrown: Error reading file", e);
-            e.printStackTrace();
-        }
-        return null;
-    }
-	
-	
->>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
+		try (FileInputStream fis = new FileInputStream(filename);
+				ObjectInputStream ois = new ObjectInputStream(fis)) {
+			User user = (User) ois.readObject();
+			return user;
+		} catch (IOException | ClassNotFoundException e) {
+			logger.error("Exception thrown: Error reading file", e);
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	// THESE TWO CODES WORK
 	public static void saveToFile(ArrayList<User> list) {
 		String filename = "Users.ser";
@@ -176,8 +102,6 @@ public class Controller {
 				os.flush();
 				os.close();
 				System.out.println("Read User Record: " + u.getid() + " \t" + u.getPassword());
-<<<<<<< HEAD
-=======
 				}
 			}catch(FileNotFoundException fnf)
 			{
@@ -189,16 +113,17 @@ public class Controller {
 				ioe.printStackTrace();
 				System.err.println("IOException thrown: Error saving record");
 
->>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 			}
-		} catch (FileNotFoundException fnf) {
-			fnf.printStackTrace();
-			System.err.println("FileNotFoundException thrown: Error saving record");
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			System.err.println("IOException thrown: Error saving record");
+		}catch(FileNotFoundException fnf)
+		{
+		fnf.printStackTrace();
+		System.err.println("FileNotFoundException thrown: Error saving record");
+	}catch(IOException ioe)
+	{
+		ioe.printStackTrace();
+		System.err.println("IOException thrown: Error saving record");
 
-		}
+	}
 
 	}
 
@@ -215,58 +140,32 @@ public class Controller {
 				list = (ArrayList<User>) obj;
 				System.out.println("Deserialized Data:");
 
-<<<<<<< HEAD
 				for (User user : list) {
 					// Print user information here if needed
 					System.out.println("ID: " + user.getid() + ", password: " + user.getPassword());
 
 					JOptionPane.showMessageDialog(null, "Login Successful!",
 							"Login Status", JOptionPane.INFORMATION_MESSAGE);
-=======
-                for (User user : list) {
-                    // Print user information here if needed
-                    System.out.println("ID: " + user.getid() + ", password: " + user.getPassword());
-			
-		    logger.info("ID: " + user.getid() + ", password: " + user.getPassword());
-                    
-                    JOptionPane.showMessageDialog(null, "Login Successful!", 
-							"Login Status" , JOptionPane.INFORMATION_MESSAGE);
-			
-		    logger.info("Login successful for: " + user.getName());
-
-                    JOptionPane.showMessageDialog(null,"Welcome " + user.getName() + 
-                    		"\nID Num: " + user.getid() ,"INFO", JOptionPane.INFORMATION_MESSAGE);
-                
-                }
-            } else {
-                System.err.println("Error: Unexpected object type in the file");
-            }
-        } catch (FileNotFoundException fnf) {
-	    logger.error("FileNotFoundException thrown: Error reading file", fnf);
-            fnf.printStackTrace();
-            System.err.println("FileNotFoundException thrown: Error reading file");
-        } catch (IOException | ClassNotFoundException | ClassCastException e) {
-	    logger.error("Exception thrown: Error reading file", e);
-            e.printStackTrace();
-            System.err.println("Exception thrown: Error reading file");
-        }
->>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 
 					JOptionPane.showMessageDialog(null, "Welcome " + user.getName() +
 							"\nID Num: " + user.getid(), "INFO", JOptionPane.INFORMATION_MESSAGE);
 
 				}
-			} else {
-				System.err.println("Error: Unexpected object type in the file");
-			}
-		} catch (FileNotFoundException fnf) {
-			fnf.printStackTrace();
-			System.err.println("FileNotFoundException thrown: Error reading file");
-		} catch (IOException | ClassNotFoundException | ClassCastException e) {
+			}else
+
+	{
+		System.err.println("Error: Unexpected object type in the file");
+	}}catch(
+	FileNotFoundException fnf)
+	{
+		fnf.printStackTrace();
+		System.err.println("FileNotFoundException thrown: Error reading file");
+	}catch(IOException|ClassNotFoundException|
+	ClassCastException e)
+	{
 			e.printStackTrace();
 			System.err.println("Exception thrown: Error reading file");
 		}
 
-		return list;
-	}
+	return list;
 }

@@ -2,22 +2,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-//import main.SessionFactoryBuilder;
-
 public class Employee extends User implements Serializable {
-<<<<<<< HEAD
     private static final long serialVersionUID = 1L;
     public int emp_id;
-=======
-	private static final long serialVersionUID = 1L;
-	private static final Logger logger = LogManager.getLogger(Employee.class);
-	public int emp_id;
->>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 
     public Employee() {
         super();
@@ -120,7 +112,8 @@ public class Employee extends User implements Serializable {
         EmployeeList = (List<Employee>) session.createQuery("FROM Employee").getResultList();
 
         transaction.commit();
-	logger.info("Retrieved all employees successfully!");
+	
+        logger.info("Retrieved all employees successfully!");
 
         session.close();
 

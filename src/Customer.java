@@ -2,19 +2,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-<<<<<<< HEAD
 //import main.SessionFactoryBuilder;
-=======
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import main.SessionFactoryBuilder;
->>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 
 public class Customer extends User {
     private static final long serialVersionUID = 1L;
@@ -109,37 +102,23 @@ public class Customer extends User {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
 
         Transaction transaction = session.beginTransaction();
+        Logger logger = LogManager.getLogger(Customer.class);
 
         if (!transaction.isActive()) {
             transaction.begin();
+            logger.info("Transaction began for creating customer.");
         }
 
         session.save(cust);
+        logger.info("Customer created: " + cust);
 
         if (transaction.isActive()) {
             transaction.commit();
+            logger.info("Transaction committed after creating customer.");
         }
 
-    Logger logger = LogManager.getLogger(Customer.class);
-    Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
-
-    Transaction transaction = session.beginTransaction();
-
-    if (!transaction.isActive()) {
-        transaction.begin();
-        logger.info("Transaction began for creating customer.");
-    }
-
-    session.save(cust);
-    logger.info("Customer created: " + cust);
-
-    if (transaction.isActive()) {
-        transaction.commit();
-        logger.info("Transaction committed after creating customer.");
-    }
-
-
         session.close();
+
     }
 
     public void create(Customer cust, Transaction transaction) {

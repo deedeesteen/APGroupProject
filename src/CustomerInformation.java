@@ -16,9 +16,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JFormattedTextField.AbstractFormatter;
+
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 
@@ -34,37 +44,11 @@ public class CustomerInformation extends JInternalFrame {
 	public CustomerInformation() {
 		this.custInfoGUI();
 	}
-=======
-import javax.swing.*;
-import javax.swing.JFormattedTextField.AbstractFormatter;
-
-//import org.jdatepicker.impl.*;
-
-public class CustomerInformation extends JInternalFrame {
-private static final long serialVersionUID = 1L;
-private ImageIcon bkgrd;
-private JLabel custdash, infolabel, bkgrdlabel, idLabel, nameLabel;
-private JInternalFrame internalFrame;
-private Color GRIZ = new Color(130, 110, 90);
-private Color ROSY = new Color(255, 87, 70);
->>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 
 // Additional components
 private JTextArea pastTransactionsTextArea;
 private JButton viewPastTransactionsButton;
 
-<<<<<<< HEAD
-		custdash = new JLabel("Customer Dashboard");
-		custdash.setFont(new Font("Verdana", Font.BOLD, 30));
-		custdash.setForeground(Color.WHITE);
-		custdash.setBounds(400, 50, 1000, 50);
-
-		infolabel = new JLabel("Customer Information");
-		infolabel.setFont(new Font("Verdana", Font.BOLD | Font.ITALIC, 30));
-		infolabel.setForeground(ROSY);
-		infolabel.setBounds(505, 50, 1000, 50);
-	}
-=======
 // Additional components for equipment rental
 private JLabel equipmentLabel, categoryLabel, dateLabel;
 private JComboBox<String> categoryComboBox;
@@ -73,9 +57,6 @@ private JButton checkAvailabilityButton;
 private JTextArea messageTextArea;
 private JButton submitMessageButton;
 
-public CustomerInformation() {
-   this.custInfoGUI();
-}
 
 private void custInfoGUI() {
    internalFrame = new JInternalFrame("Customer Information");
@@ -346,5 +327,4 @@ private void saveMessageToDatabase(String message) {
         Logger.getLogger(CustomerInformation.class.getName()).log(Level.SEVERE, "Error saving customer message", ex);
     }
 }
->>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 }

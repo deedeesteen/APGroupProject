@@ -60,7 +60,6 @@ public class EmployeeDashboard extends JFrame {
 		bkgrdlabel.setBounds(370, 0, bkgrd.getIconWidth(), bkgrd.getIconHeight());
 
 		JMenu menu = new JMenu("Menu");
-<<<<<<< HEAD
 
 		menuBar = new JMenuBar();
 		menuBar.add(createIconMenu(menu));
@@ -70,21 +69,6 @@ public class EmployeeDashboard extends JFrame {
 		JMenuItem equip = new JMenuItem("All Equipment");
 		JMenuItem requests = new JMenuItem("Rental Requests");
 		// Add JMenu components to the MenuBar
-=======
-        
-        menuBar = new JMenuBar();
-        menuBar.add(createIconMenu(menu));
-        menuBar.add(Box.createHorizontalGlue());
-        menuBar.setBackground(GRIZ);
-        
-        JMenuItem equip = new JMenuItem("All Equipment");
-        JMenuItem requests = new JMenuItem("Rental Requests");
-
-	equip.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
-        requests.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
-		
-		//Add JMenu components to the MenuBar
->>>>>>> 361a03218e4bb9a55758578aa7fde697b7bace70
 		menu.add(equip);
 		menu.add(requests);
 

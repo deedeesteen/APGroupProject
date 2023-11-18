@@ -1,0 +1,19 @@
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping> 
+    <class name="models.Equipment" table="equipment">
+        <id name="equip_id" type="java.lang.String">
+           <!-- <column name="equip_id"/>-->
+            <generator class="assigned"/>
+        </id>
+        <property name="equip_name" column="equip_name" type="java.lang.String" />
+        <property name="cost" column="cost" type="java.lang.Double" />
+        <property name="availability" column="availability" type="java.lang.String"/>
+        <property name="category" column="category" type="java.lang.String" />
+        <!--<property name="dateRequired" column="dateRequired" type="java.util.Date" /> -->
+
+        <!--<many-to-one name="customer" class="models.Customer" column="custequip_id"/> -->
+       <!--- <many-to-one name="customer" class="models.Customer" column="cust_id" /> -->
+      <one-to-one name="transaction" class="models.Transactions" />
+    </class>
+</hibernate-mapping>
