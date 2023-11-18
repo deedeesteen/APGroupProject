@@ -23,6 +23,9 @@ import org.apache.logging.log4j.Logger;
 import client.Customer;
 
 public class CustomerDashboard extends JFrame {
+
+    private static final Logger logger = LogManager.getLogger(CustomerDashboard.class);
+    
     private static final long serialVersionUID = 1L;
     private JFrame cdframe;
     private JDesktopPane desktop;
