@@ -1,6 +1,5 @@
 import client.Customer;
 import client.Employee;
-import client.Equipment;
 import client.User;
 
 import javax.swing.JFrame;
@@ -25,6 +24,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,6 +42,7 @@ public class UserSignUp extends JFrame {
 	private Color GRIZ = new Color(130, 110, 90);
 	private Color TAN = new Color(232, 231, 177);
 	private Color ROSY = new Color(255, 87, 70);
+	private static final Logger logger = LogManager.getLogger(DBConnectorFactory.class);
 	
 	public UserSignUp() {
 		this.signUpAction();
@@ -141,6 +142,7 @@ public class UserSignUp extends JFrame {
         signUpBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.log(Level.INFO, "The 'Sign Up' Button was clicked.");
 				signUpnSave();
 			}
 		});
@@ -159,6 +161,7 @@ public class UserSignUp extends JFrame {
         lgnButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				logger.log(Level.INFO, "The 'Login' Button was clicked.");
 				new UserLogin();
 				frame.dispose(); //Closes the frame
 			}
@@ -267,16 +270,13 @@ public class UserSignUp extends JFrame {
             // Customer newCustomer = new Customer(userId, userpassword, userRole, userName,
             // userId);
             User.create(newCustomer);
-
-            Equipment equip = new Equipment();
-
-            equip.EquipmentForm();
-
+	    logger.log(Level.INFO, "A new Customer account was created successfully");
         } else {
             if (userRole.equals("Employee")) {
                 emp.setEmp_id(userId);
                 Employee newEmployee = new Employee(userId, userpassword, userName, usergender, userRole, userId);
                 User.create(newEmployee);
+		logger.log(Level.INFO, "A new Employee account was created successfully");
             }
         }
         
