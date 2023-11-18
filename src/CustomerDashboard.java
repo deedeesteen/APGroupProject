@@ -76,6 +76,7 @@ public class CustomerDashboard extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	 RentEquipment rental = new RentEquipment();
                  desktop.add(rental);
+                 rental.setVisible(true);
                  try {
                      rental.setSelected(true);
                  } catch (Exception ex) {
