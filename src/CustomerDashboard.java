@@ -65,6 +65,10 @@ public class CustomerDashboard extends JFrame {
         
         JMenuItem custinfo = new JMenuItem("Customer Information");
         JMenuItem equip = new JMenuItem("Rent Equipment");
+
+        custinfo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, KeyEvent.CTRL_DOWN_MASK));
+        equip.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+        
         equip.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -82,6 +86,9 @@ public class CustomerDashboard extends JFrame {
         
         JMenuItem transac = new JMenuItem("Transactions");
         JMenuItem contact = new JMenuItem("Contact Us");
+
+        transac.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, KeyEvent.CTRL_DOWN_MASK));
+        contact.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK));
 
         transac.addActionListener(new ActionListener() {
             @Override
